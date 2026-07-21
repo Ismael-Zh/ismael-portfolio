@@ -36,7 +36,7 @@ export default function CvModal({ isOpen, onClose }: CvModalProps) {
             {/* Header bar */}
             <div className="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-black/40 shrink-0">
               <div className="flex items-center gap-2.5">
-                <FileText className="w-5 h-5 text-[#ff5f1f]" />
+                <FileText className="w-5 h-5 text-red-500" />
                 <h2 className="font-syne text-sm font-bold tracking-wider text-white">
                   Currículum Vitae
                 </h2>

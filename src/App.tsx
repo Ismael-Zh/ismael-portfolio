@@ -251,16 +251,16 @@ export default function App() {
           >
             <motion.h1
               variants={titleVariants}
-              className="font-syne text-[56px] sm:text-[100px] md:text-[100px] font-semibold tracking-normal leading-[0.95] text-white"
+              className="font-syne text-[38px] min-[380px]:text-[48px] min-[480px]:text-[56px] sm:text-[80px] md:text-[100px] font-semibold tracking-normal leading-[0.95] text-white"
             >
               Ismael Zhindón
             </motion.h1>
 
             <motion.div
               variants={popInVariants}
-              className="inline-block relative px-8 py-4 bg-[#180b07]/30 backdrop-blur-xl rounded-2xl"
+              className="inline-block relative px-4 sm:px-8 py-2.5 sm:py-4 bg-[#180b07]/30 backdrop-blur-xl rounded-2xl"
             >
-              <p className="font-sans text-[18px] w-[693.5px] max-w-full tracking-[0.45em] uppercase font-semibold color-sweep-text whitespace-nowrap">
+              <p className="font-sans text-[9px] min-[380px]:text-[11px] sm:text-[14px] md:text-[18px] w-auto md:w-[693.5px] max-w-full tracking-[0.15em] min-[380px]:tracking-[0.25em] sm:tracking-[0.35em] md:tracking-[0.45em] uppercase font-semibold color-sweep-text whitespace-nowrap">
                 DISEÑADOR DE ANIMACIÓN Y ARTE DIGITAL
               </p>
             </motion.div>

@@ -179,9 +179,7 @@ export default function MediaLightbox({
                   </motion.div>
                 ))}
               </div>
-              <p className="font-mono text-[10px] text-center text-white/40 tracking-wider">
-                — {currentItem.images.length} imágenes cargadas en el proyecto. Haz click en cualquiera para ver en detalle. —
-              </p>
+
             </div>
           ) : (
             <motion.img

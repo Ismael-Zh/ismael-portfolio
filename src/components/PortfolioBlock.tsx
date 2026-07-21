@@ -58,7 +58,7 @@ export default function PortfolioBlock() {
     currentIndex: 0,
   });
 
-  const [activePdfUrl, setActivePdfUrl] = useState<string | null>(null);
+  const [activePdf, setActivePdf] = useState<{ url: string; title: string } | null>(null);
 
   // Load all items (static + IndexedDB saved items)
   const loadAllItems = async () => {
@@ -181,7 +181,7 @@ export default function PortfolioBlock() {
           <div className="mt-6 pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setActivePdfUrl(item.url)}
+                onClick={() => setActivePdf({ url: item.url, title: item.title })}
                 className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider text-primary hover:text-white transition-colors duration-300 cursor-pointer"
               >
                 <Eye className="w-3.5 h-3.5" /> VER ONLINE
@@ -765,13 +765,13 @@ export default function PortfolioBlock() {
 
       {/* PDF Viewer Inline Overlay */}
       <AnimatePresence>
-        {activePdfUrl && (
+        {activePdf && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setActivePdfUrl(null)}
+              onClick={() => setActivePdf(null)}
               className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-pointer"
             />
             <motion.div
@@ -781,39 +781,36 @@ export default function PortfolioBlock() {
               className="relative w-full max-w-5xl h-[80vh] bg-[#180b07] border border-primary-container rounded-2xl flex flex-col overflow-hidden shadow-2xl z-10 p-6"
             >
               <div className="flex justify-between items-center mb-4 pb-3 border-b border-white/5">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <FileCheck className="w-5 h-5 text-red-500 animate-pulse" />
-                  <span className="font-syne text-sm font-semibold text-white uppercase tracking-wider">
-                    Visor de Documentos
+                  <span className="font-syne text-sm font-semibold text-white tracking-wider">
+                    {activePdf.title}
                   </span>
                 </div>
                 <button
-                  onClick={() => setActivePdfUrl(null)}
-                  className="p-2 border border-white/10 rounded-lg text-white/70 hover:text-primary hover:border-primary transition-all duration-300 cursor-pointer flex items-center justify-center bg-white/5"
+                  onClick={() => setActivePdf(null)}
+                  className="p-1.5 border border-[#ff5f1f]/50 rounded-full bg-black/60 text-[#ff5f1f] hover:-translate-y-0.5 hover:bg-[#ff5f1f]/25 hover:text-white hover:shadow-[0_0_20px_rgba(255,95,31,0.4)] hover:border-[#ff5f1f] transition-all duration-300 cursor-pointer flex items-center justify-center"
                   title="Cerrar visor"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* PDF embed */}
               <div className="flex-grow rounded-xl bg-white/5 overflow-hidden border border-white/5">
                 <iframe
-                  src={activePdfUrl}
+                  src={activePdf.url}
                   className="w-full h-full bg-white/90"
-                  title="PDF Document Viewer"
+                  title={activePdf.title}
                 />
               </div>
 
-              <div className="mt-4 flex justify-between items-center">
-                <span className="font-mono text-[10px] text-on-surface-variant">
-                  Apertura directa integrada
-                </span>
+              <div className="mt-4 flex justify-end items-center">
                 <button
-                  onClick={() => downloadFile(activePdfUrl, "documento.pdf")}
-                  className="flex items-center gap-2 bg-primary-container text-white px-4 py-2 rounded text-xs font-mono tracking-wider hover:shadow-[0_0_15px_#ff5f1f] transition-all duration-300"
+                  onClick={() => downloadFile(activePdf.url, `${activePdf.title}.pdf`)}
+                  className="px-4 py-2 border border-[#ff5f1f]/50 rounded-xl bg-black/60 text-[#ff5f1f] hover:-translate-y-0.5 hover:bg-[#ff5f1f]/25 hover:text-white hover:shadow-[0_0_20px_rgba(255,95,31,0.4)] hover:border-[#ff5f1f] transition-all duration-300 cursor-pointer flex items-center gap-2 font-syne text-xs tracking-wider"
                 >
-                  <Download className="w-4 h-4" /> DESCARGAR ORIGINAL
+                  <Download className="w-3.5 h-3.5" /> Descargar
                 </button>
               </div>
             </motion.div>
